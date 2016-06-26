@@ -1,4 +1,4 @@
-require_relative '../../lib/pieces/pawn.rb'
+require 'pieces/pawn'
 
 describe Pawn do
   before :all do

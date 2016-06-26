@@ -1,4 +1,4 @@
-require_relative '../../lib/pieces/bishop.rb'
+require 'pieces/bishop'
 
 describe Bishop do
   before :all do

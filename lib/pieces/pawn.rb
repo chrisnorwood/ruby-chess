@@ -1,4 +1,4 @@
-require_relative '../piece.rb'
+require_relative '../piece'
 
 class Pawn < Piece
   def intitialize

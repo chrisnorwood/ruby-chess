@@ -1,4 +1,4 @@
-require_relative '../../lib/pieces/rook.rb'
+require 'pieces/rook'
 
 describe Rook do
   before :all do
