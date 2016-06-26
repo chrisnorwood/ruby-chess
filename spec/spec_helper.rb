@@ -1,3 +1,4 @@
+require 'piece'
 require 'player'
 require 'board'
 require 'chess'
