@@ -2,7 +2,7 @@ require_relative '../../lib/pieces/queen.rb'
 
 describe Queen do
   before :all do
-    @queen = Queen.new(:w, [0,1])
+    @queen = Queen.new(:w, [3,0])
   end
 
   context "#initialize" do

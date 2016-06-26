@@ -2,7 +2,7 @@ require_relative '../../lib/pieces/rook.rb'
 
 describe Rook do
   before :all do
-    @rook = Rook.new(:w, [0,1])
+    @rook = Rook.new(:w, [0,0])
   end
 
   context "#initialize" do
