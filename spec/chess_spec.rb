@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'chess'
 
 describe Chess do
   
