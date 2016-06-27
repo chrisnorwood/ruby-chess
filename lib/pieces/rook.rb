@@ -1,7 +1,8 @@
 require_relative '../piece'
 
 class Rook < Piece
-  def intitialize
+  def initialize(color, position)
     super(color, position)
+    @icon = 'R'
   end
 end

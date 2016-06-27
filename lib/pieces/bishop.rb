@@ -1,7 +1,8 @@
 require_relative '../piece'
 
 class Bishop < Piece
-  def intitialize
+  def initialize(color, position)
     super(color, position)
+    @icon = 'B'
   end
 end

@@ -1,7 +1,8 @@
 require_relative '../piece'
 
 class King < Piece
-  def intitialize
+  def initialize(color, position)
     super(color, position)
+    @icon = 'K'
   end
 end
