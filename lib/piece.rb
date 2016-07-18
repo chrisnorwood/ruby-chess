@@ -1,5 +1,5 @@
 class Piece
-  attr_accessor :color, :position, :icon, :child_positions
+  attr_accessor :color, :position, :icon
 
   def initialize(color, position)
     @color = color
