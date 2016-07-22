@@ -14,15 +14,22 @@ class Piece
     moves = []
 
     move_vectors.each do |vector|
-      shift_x, shift_y  = vector[0], vector[1]
-      start_x, start_y  = position[0], position[1]
+      x_shift, y_shift  = vector[0], vector[1]
 
-      moves << [start_x+shift_x, start_y+shift_y]
+      moves << [x_position + x_shift, y_position + y_shift]
     end
 
     moves.select! { |move| move[0] >= 0 && move[0] < 8 && move[1] >= 0 && move[1] < 8 }
     
     return moves
+  end
+
+  def x_position
+    position[0]
+  end
+
+  def y_position
+    position[1]
   end
 
   private
