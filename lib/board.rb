@@ -1,17 +1,11 @@
 require_relative 'string'
 
 class Board
-
+  attr_reader :pieces
   # 'pieces' is array of all piece objects to be displayed on board (starts with 16 total)
   def initialize
-    @pieces = [Pawn.new(:w, [0,1]),   Pawn.new(:w, [1,1]),   Pawn.new(:w, [2,1]),   Pawn.new(:w, [3,1]),
-               Pawn.new(:w, [4,1]),   Pawn.new(:w, [5,1]),   Pawn.new(:w, [6,1]),   Pawn.new(:w, [7,1]),
-               Pawn.new(:b, [0,6]),   Pawn.new(:b, [1,6]),   Pawn.new(:b, [2,6]),   Pawn.new(:b, [3,6]),
-               Pawn.new(:b, [4,6]),   Pawn.new(:b, [5,6]),   Pawn.new(:b, [6,6]),   Pawn.new(:b, [7,6]),
-               Rook.new(:w, [0,0]),   Rook.new(:w, [7,0]),   Rook.new(:b, [0,7]),   Rook.new(:b, [7,7]),
-               Bishop.new(:w, [2,0]), Bishop.new(:w, [5,0]), Bishop.new(:b, [2,7]), Bishop.new(:b, [5,7]),
-               Knight.new(:w, [1,0]), Knight.new(:w, [6,0]), Knight.new(:b, [1,7]), Knight.new(:b, [6,7]),
-               King.new(:w, [4,0]),   King.new(:b, [4,7]),   Queen.new(:w, [3,0]),  Queen.new(:b, [3,7])]
+    @pieces = []
+    populate_pieces
   end
 
   def display
@@ -59,5 +53,51 @@ class Board
       end
     end
     print "\n\n"
+  end
+
+  private
+
+  def populate_pieces
+    add_pawns
+    add_rooks
+    add_bishops
+    add_knights
+    add_kings
+    add_queens
+  end
+
+  def add_pawns
+    8.times do |x|
+      pieces << Pawn.new(:w, [x, 1])
+    end
+
+    8.times do |x|
+      pieces << Pawn.new(:b, [x, 6])
+    end
+  end
+
+  def add_rooks
+    pieces << Rook.new(:w, [0,0]) << Rook.new(:w, [7,0])
+    pieces << Rook.new(:b, [0,7]) << Rook.new(:b, [7,7])
+  end
+
+  def add_bishops
+    pieces << Bishop.new(:w, [2,0]) << Bishop.new(:w, [5,0])
+    pieces << Bishop.new(:b, [2,7]) << Bishop.new(:b, [5,7])
+  end
+
+  def add_knights
+    pieces << Knight.new(:w, [1,0]) << Knight.new(:w, [6,0])
+    pieces << Knight.new(:b, [1,7]) << Knight.new(:b, [6,7])
+  end
+
+  def add_kings
+    pieces << King.new(:w, [4,0])
+    pieces << King.new(:b, [4,7])
+  end
+
+  def add_queens
+    pieces << Queen.new(:w, [3,0])
+    pieces << Queen.new(:b, [3,7])
   end
 end
