@@ -4,6 +4,7 @@ class Pawn < Piece
   def initialize(color, position)
     super(color, position)
     @icon = 'P'
+    @jumper = true
     create_vectors
   end
 
@@ -23,6 +24,7 @@ class Pawn < Piece
     if y_position == 1
       move_vectors << [0,2]
     end
+    attack_only_vectors << [1,1] << [-1,1]
   end
 
   def black_vectors
@@ -30,5 +32,6 @@ class Pawn < Piece
     if y_position == 6
       move_vectors << [0,-2]
     end
+    attack_only_vectors << [1,-1] << [-1,-1]
   end
 end
