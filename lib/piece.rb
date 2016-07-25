@@ -1,19 +1,30 @@
 class Piece
   attr_accessor :color, :position, :icon
-  attr_reader   :move_vectors
+  attr_reader   :move_vectors, :attack_only_vectors, :jumper
 
   def initialize(color, position)
-    @color        = color
-    @position     = position
-    @move_vectors = []
+    @color               = color
+    @position            = position
+    @move_vectors        = []
+    @attack_only_vectors = []
   end
 
   public
 
-  def possible_moves
+  # this returns the possible moves for any given piece, without knowledge of the board
+  # if the piece has attack_only_vectors, it will return ONLY non attack moves, unless :attacks=true is passed
+  # if the piece has no "attack_only_vectors", it will return the same array whether options are provided or not
+  def possible_moves(options = {})
+    if (options[:attacks] == true && !attack_only_vectors.empty?)
+      vectors = attack_only_vectors
+    else
+      vectors = move_vectors
+    end
+
     moves = []
 
-    move_vectors.each do |vector|
+    vectors.each do |vector|
+      next if attack_only_vectors.include?(vector) && options.empty?
       x_shift, y_shift  = vector[0], vector[1]
 
       moves << [x_position + x_shift, y_position + y_shift]
