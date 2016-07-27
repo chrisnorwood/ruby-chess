@@ -1,7 +1,7 @@
 require_relative 'string'
 
 class Board
-  attr_reader :pieces
+  attr_accessor :pieces
   # 'pieces' is array of all piece objects to be displayed on board (starts with 16 total)
   def initialize
     @pieces = []
