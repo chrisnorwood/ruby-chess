@@ -1,5 +1,5 @@
 class Move
-  attr_accessor :status, :failure, :valid_moves, :temp_moves
+  attr_accessor :valid_moves, :temp_moves
   attr_reader   :board, :player, :root, :target
 
   def initialize board, player, root, target
@@ -143,7 +143,7 @@ class Move
       end
       return status
     else
-      false
+      return false
     end
   end
 
@@ -155,7 +155,7 @@ class Move
       end
       return status
     else
-      false
+      return false
     end
   end
 
@@ -185,7 +185,7 @@ class Move
 
       return status
     else
-      false
+      return false
     end
   end
 end
