@@ -292,4 +292,30 @@ describe Move do
       end
     end
   end
+
+  describe "#execute" do
+    let(:move) { Move.new(board, white_player, [0,1], [0,2] )}
+    let(:root_position) { move.root_piece.position }
+    it "moves a piece from the root to the target" do
+      expect{ move.execute }.to change{ move.root_piece.position }.from([0,1]).to([0,2])
+    end
+
+    context "when attacking" do
+      before do
+        played_board.pieces = []
+        played_board.pieces << King.new(:w, [1,0]) << Queen.new(:w, [4,2]) << Pawn.new(:w, [3,5])
+        played_board.pieces << Pawn.new(:b, [4,6]) << Pawn.new(:b, [6,6]) << King.new(:b, [6,7]) << Bishop.new(:b, [6,4])
+      end
+
+      let(:move) { Move.new(played_board, white_player, [4,2], [6,4]) }
+
+      it "moves the root piece to target" do
+        expect{ move.execute }.to change{ move.root_piece.position }.from([4,2]).to([6,4])
+      end
+
+      it "updates the target piece position to nil" do
+        expect{ move.execute }.to change{ move.target_piece.position }.from([6,4]).to(nil)
+      end
+    end
+  end
 end

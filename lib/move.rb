@@ -1,12 +1,14 @@
 class Move
   attr_accessor :valid_moves, :temp_moves
-  attr_reader   :board, :player, :root, :target
+  attr_reader   :board, :player, :root, :target, :root_piece, :target_piece
 
   def initialize board, player, root, target
-    @board       = board
-    @player      = player
-    @root        = root
-    @target      = target
+    @board        = board
+    @player       = player
+    @root         = root
+    @target       = target
+    @root_piece   = piece_at_position(root)
+    @target_piece = piece_at_position(target)
 
     @temp_moves  = []
     @valid_moves = make_valid_moves
@@ -16,6 +18,16 @@ class Move
 
   def valid?
     valid_moves.include?(target)
+  end
+
+  def execute
+    if valid?
+      if attack_attempt?
+        target_piece.position = nil
+      end
+
+      root_piece.position = target
+    end
   end
 
   def make_valid_moves
@@ -31,7 +43,6 @@ class Move
         piece_at_position(possible).color == player_color unless piece_at_position(possible) == false
       end
 
-      # prunes positions that are not on clear linear path for sliding/non-jumper pieces --> CLEAR `IN_BETWEEN`
       unless root_is_jumper?
         temp_moves.reject! { |possible| in_between?(root, possible) }
       end
@@ -64,16 +75,6 @@ class Move
     root_piece.jumper
   end
 
-  # define important properties of each move:
-
-  def root_piece
-    piece_at_position(root)
-  end
-
-  def target_piece
-    piece_at_position(target)
-  end
-
   def root_color
     root_piece.color if root_piece
   end
@@ -104,6 +105,7 @@ class Move
     root_piece.possible_moves(attacks: true)
   end
 
+  #####################################
   # helpers for in_between calculations
   def min(a,b)
     a < b ? a : b
@@ -112,7 +114,7 @@ class Move
   def max(a,b)
     a > b ? a : b
   end
-  #######
+  #####################################
 
   def in_between?(from, to)
     from_x, from_y, to_x, to_y = from[0], from[1], to[0], to[1]
