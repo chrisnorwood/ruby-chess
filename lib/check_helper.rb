@@ -31,13 +31,14 @@ class CheckHelper
       status = true
 
       player_pieces.each do |player_piece|
-        fake_board = board.dup
         root_position = player_piece.position
         possibilities = player_piece.possible_moves
         
         possibilities.each do |possible|
+          fake_board = board.dup
           test_move = Move.new(fake_board, player, root_position, possible)
           test_move.execute
+          
           status = false unless CheckHelper.new(fake_board, player).in_check?
         end
       end
