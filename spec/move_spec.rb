@@ -208,7 +208,7 @@ describe Move do
     context "Board is NOT in default, init. layout" do
       before do
         played_board.pieces = []
-        played_board.pieces << King.new(:w, [1,0]) << Queen.new(:w, [4,2])
+        played_board.pieces << King.new(:w, [2,0]) << Queen.new(:w, [4,2])
         played_board.pieces << Pawn.new(:b, [4,6]) << Pawn.new(:b, [6,6]) << King.new(:b, [6,7]) << Bishop.new(:b, [6,4])
       end
 
@@ -236,7 +236,7 @@ describe Move do
   describe "#valid?" do
     before do
       played_board.pieces = []
-      played_board.pieces << King.new(:w, [1,0]) << Queen.new(:w, [4,2]) << Pawn.new(:w, [3,5])
+      played_board.pieces << King.new(:w, [2,0]) << Queen.new(:w, [4,2]) << Pawn.new(:w, [3,5])
       played_board.pieces << Pawn.new(:b, [4,6]) << Pawn.new(:b, [6,6]) << King.new(:b, [6,7]) << Bishop.new(:b, [6,4])
     end
 
