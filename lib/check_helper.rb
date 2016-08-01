@@ -28,7 +28,7 @@ class CheckHelper
 
   def in_checkmate?
     if in_check?
-      status = true
+      statuses = [true, false]
 
       player_pieces.each do |player_piece|
         unless player_piece.nil?
@@ -40,13 +40,30 @@ class CheckHelper
             test_move = Move.new(fake_board, player, root_position, possible)
             test_move.execute
 
-            status = false unless CheckHelper.new(fake_board, player).in_check?
+            if CheckHelper.new(fake_board, player).in_check?
+              statuses = [true, true]
+            else
+              statuses = [true, false]
+
+              enemy_pieces = fake_board.pieces.select { |piece| piece.color == enemy_color }
+              enemy_pieces.each do |enemy_piece|
+                enemy_possibilities = enemy_piece.possible_moves
+                enemy_possibilities.each do |enemy_possible|
+                  second_test_move = Move.new(fake_board, enemy_player, root_position, enemy_possible)
+                  second_test_move.execute if second_test_move.valid?
+                  if CheckHelper.new(fake_board, player).in_check?
+                    statuses = [true, true]
+                  end
+                end
+              end
+            end
+
             test_move.reset
           end
         end
       end
 
-      return status
+      return (statuses.all?{ true }) ? true : false
     else
       return false
     end
