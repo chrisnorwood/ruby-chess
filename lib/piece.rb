@@ -14,6 +14,7 @@ class Piece
   # this returns the possible moves for any given piece, without knowledge of the board
   # if the piece has attack_only_vectors, it will return ONLY non attack moves, unless :attacks=true is passed
   # if the piece has no "attack_only_vectors", it will return the same array whether options are provided or not
+  # if position not 'nil' allows for captured pieces to NOT be considered
   def possible_moves(options = {})
     if (options[:attacks] == true && !attack_only_vectors.empty?)
       vectors = attack_only_vectors
@@ -23,14 +24,16 @@ class Piece
 
     moves = []
 
-    vectors.each do |vector|
-      next if attack_only_vectors.include?(vector) && options.empty?
-      x_shift, y_shift  = vector[0], vector[1]
+    unless position.nil?
+      vectors.each do |vector|
+        next if attack_only_vectors.include?(vector) && options.empty?
+        x_shift, y_shift  = vector[0], vector[1]
 
-      moves << [x_position + x_shift, y_position + y_shift]
+        moves << [x_position + x_shift, y_position + y_shift]
+      end
+
+      moves.select! { |move| move[0] >= 0 && move[0] < 8 && move[1] >= 0 && move[1] < 8 }
     end
-
-    moves.select! { |move| move[0] >= 0 && move[0] < 8 && move[1] >= 0 && move[1] < 8 }
     
     return moves
   end
