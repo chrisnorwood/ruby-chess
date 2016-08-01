@@ -30,6 +30,14 @@ class Move
     end
   end
 
+  def reset
+    root_piece.position = root
+    
+    if attack_attempt?
+      target_piece.position = target
+    end
+  end
+
   def make_valid_moves
     if root_is_players? && (in_possibilities? || in_possible_attacks?)
       if attack_attempt?

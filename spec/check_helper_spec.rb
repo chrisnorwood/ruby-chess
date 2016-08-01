@@ -1,7 +1,7 @@
 require 'check_helper'
 require 'board'
 require 'player'
-require 'chess'
+require 'game'
 
 describe CheckHelper do
   let(:white_player) { Player.new(:w) }

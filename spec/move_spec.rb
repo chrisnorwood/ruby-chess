@@ -2,7 +2,7 @@ require 'move'
 require 'board'
 require 'player'
 
-require 'chess'
+require 'game'
 
 describe Move do
   let(:board) { Board.new }
